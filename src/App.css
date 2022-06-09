@@ -1,3 +1,4 @@
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css');
 .App {
 text-align: center;
  max-width:425px;
@@ -68,6 +69,51 @@ text-align: center;
 .post-likes {
   float: left;
   margin:10px;
+  display: flex;
+  font-size: 1.1rem;
+}
+
+.comment-main {
+  border-bottom:1px solid lightgrey;
+  text-align:left;
+  padding:20px;
+}
+
+.comment-text {
+  padding:10px;
+  display: flex;
+}
+
+.comment-text span:first-child {
+  margin:0;
+}
+
+.comment-text span {
+  margin-left:10px;
+}
+
+.comment-text img {
+  width:30px;
+  height:30px;
+  border-radius:50%;
+}
+
+.comment-up {
+  border-bottom:1px solid lightgray;
+  display:flex;
+}
+
+.comment-up input {
+  border:none;
+  width:400px;
+}
+
+.comment-up span i {
+  font-size: 1.5rem;
+}
+
+.post-likes i {
+  padding:2px;
 }
 
 .post-content {
