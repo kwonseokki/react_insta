@@ -1,68 +1,76 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import postdata from './post/postdata';
-
-
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import { Feed, Post } from './pages/Feed.js';
+import { Header } from './css/component.js';
 
 
 function App() {
-
+// states
   let [post , postData] = useState(postdata);
   let [likes, setlike] = useState('0');
   let [liked, likeStatus] = useState(false);
   let [modal, modalStatus] = useState(false);
   let [postI, setIndex] = useState(0);
+  let [postDepth, setPostDepth] = useState(0);
+  
+  
+  // userState 0:메인 / 1:사진올리기 / 2:글발행 / 0:
+ 
 
+  
+// 변수들
+  let navigator = useNavigate();
 
   return (
     <div className="App">
-    <header className='header'><h4>ReactApp</h4></header>
+   
+    {postDepth == 0 ? <Header justify="space-between"> <h4 className='header-text'>seokstagram</h4>
+        <div className='header-icon'>
+      <i class="fi fi-rs-user"></i>
+      <i class="fi fi-rs-comment"></i>
+      </div></Header> : null}
 
-     {
-  post.map(function(element, index){
-    return(
-      <div className='list'>
-        <div className='post-header'> 
-       
-        <img src={`${post[index].userImage}`}></img>
-          <h6 style={{float:'right'}}>{post[index].name}</h6>
+    {postDepth == 1 ? <Header justify="space-around"><span onClick={()=>{setPostDepth(--postDepth); navigator('/')}}>이전</span><span>사진업로드</span><span onClick={()=>{setPostDepth(++postDepth)}}>다음</span></Header> : null } 
 
-          <span>{post[index].date}</span>
-          </div>
-          
-         
-       <div className='post-picture' style={{ background: `url(${post[index].postImage})`}}>
+    {postDepth == 2 ? <Header justify="space-around"><span onClick={()=>{setPostDepth(--postDepth);}}>이전</span><span>글발행</span><span onClick={()=>{setPostDepth(postDepth=0); navigator('/')}}>완료</span></Header> : null}  
+     
+
+    {/* post컴포넌트 */}
+    <Routes>
+      <Route path='/' element={<div>
+        {
+      post.map((element, index)=>{
+        return (
+          <Feed post={post}
+          postData={postData}
+          likes={likes}
+          setlike={setlike}
+          liked={liked}
+          likeStatus={likeStatus}
+          modal={modal}
+          modalStatus={modalStatus}
+          postI={postI}
+          setIndex={setIndex}
+          feedIdx={index}
+
+    ></Feed>
+        )
+      })
+    }
+      </div>}>
         
-       </div>
-       <span className='post-likes'>
+      </Route>
 
-         {post[index].likes}<i onClick={()=>{
-           if(liked == false) {
-           setlike(post[index].likes++);
-           likeStatus(true);
-          } else {
-            setlike(post[index].likes--);
-            likeStatus(false);
-          }
-         }} class="fi fi-rs-heart"></i>
-
-         {/* 댓글모달 */}
-         <i onClick={()=>{
-           setIndex(index);
-           modalStatus(true);
-         }} class="fi fi-rs-comments"></i>
-         </span>
-
+      {/* 글발행 컴포넌트 */}
+      <Route path='/post' element={<Post postDepth={postDepth}/>}>
       
-      <p className='post-content'>
-       {post[index].content}
-      </p>
-  
-        </div>
-      )
-    })
-  }
+        
+      </Route>
+    </Routes>
+   
+   
 
  
 
@@ -72,7 +80,10 @@ function App() {
 
   <footer className='footer'>
     
-      <span>
+      <span onClick={()=> {
+        setPostDepth(++postDepth);
+        navigator('/post');
+        }}>
         <i class="fi fi-rs-plus"></i>
     
       </span>

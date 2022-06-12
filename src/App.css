@@ -1,8 +1,14 @@
 @import url('https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Noto+Sans+KR:wght@500&display=swap');
 .App {
 text-align: center;
  max-width:425px;
  margin:0 auto;
+}
+
+.contentsBox {
+  position: relative;
+  top: 60px;
 }
 
 .header {
@@ -13,6 +19,25 @@ text-align: center;
   position:fixed;
   background:white;
   z-index:99999;
+  display: flex;
+  align-items:center;
+  display:flex;
+  justify-content: space-between;
+}
+
+
+.header-text {
+  text-align: left;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  margin:0;
+  line-height:60px;
+}
+
+.header-icon {
+  line-height:70px;
+  font-size:1.2rem;
+  letter-spacing:7px;
 }
 
 .footer {
@@ -25,6 +50,7 @@ text-align: center;
   display:flex;
   align-items:center;
   justify-content:space-around;
+  z-index:99999;
 }
 
 .modal {
